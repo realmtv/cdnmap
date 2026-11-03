@@ -13,7 +13,7 @@ export DELAY=${DELAY:-5}
 export RUN_INTERVAL=${RUN_INTERVAL:-21600}
 
 while true; do
-    python3 -c "
+    python3 -u -c "
 import json, os, subprocess, sys
 try:
     with open('/app/targets.json') as f:
@@ -29,45 +29,52 @@ try:
         if not mode or not target or not list_name:
             continue
             
-        print(f'[+] Syncing: {list_name}')
+        print(f'[+] Syncing address list: {list_name}', flush=True)
         
         iterations = os.environ.get('ITERATIONS', '20')
         delay = os.environ.get('DELAY', '5')
         
-        cmd = ['python3', 'cdnmap.py', '-i', iterations, '-d', delay, '-m', list_name, '-o', 'commands.txt']
+        cmd = ['python3', 'cdnmap.py', '-i', iterations, '-d', delay, '-m', list_name, '-o', '/app/commands.txt']
         if mode == 'crawl':
-            cmd.insert(2, target)
+            cmd.append(target)
         elif mode == 'dns_only':
             cmd.extend(['--list', target])
             
         subprocess.run(cmd)
         
-        if os.path.exists('commands.txt'):
-            with open('commands.txt', 'r') as cf:
+        mikrotik_commands = f'/ip firewall address-list remove [find where list=\"{list_name}\"]'
+        
+        if os.path.exists('/app/commands.txt'):
+            with open('/app/commands.txt', 'r') as cf:
                 payload = cf.read()
             
-            if not payload.strip():
-                continue
-                
-            fixed_payload = '/ip firewall address-list remove [find where dynamic=yes]\n' + payload + '\n'
-            with open('commands_fixed.txt', 'w') as ff:
-                ff.write(fixed_payload)
-                
-            os.system('cp /root/.ssh/id_rsa /tmp/id_rsa_fixed 2>/dev/null && chmod 600 /tmp/id_rsa_fixed 2>/dev/null')
-            
-            ssh_cmd = [
-                'ssh', '-n', '-o', 'StrictHostKeyChecking=no',
-                '-o', 'KexAlgorithms=+diffie-hellman-group14-sha256,diffie-hellman-group-exchange-sha256',
-                '-o', 'HostKeyAlgorithms=+ssh-rsa',
-                '-i', '/tmp/id_rsa_fixed', f'{os.environ[\"M_USER\"]}@{os.environ[\"M_IP\"]}'
-            ]
-            
-            with open('commands_fixed.txt', 'r') as stdin_file:
-                subprocess.run(ssh_cmd, stdin=stdin_file)
-                
-            os.system('rm -f commands.txt commands_fixed.txt /tmp/id_rsa_fixed 2>/dev/null')
+            clean_payload = payload.replace('\r', '').strip()
+            if clean_payload:
+                mikrotik_commands += '\n' + clean_payload
+            else:
+                print(f'[-] cdnmap.py returned 0 hosts for {list_name}. List will be cleared.', flush=True)
+        
+        os.system('cp /root/.ssh/id_rsa /tmp/id_rsa_fixed 2>/dev/null && chmod 600 /tmp/id_rsa_fixed 2>/dev/null')
+        
+        ssh_cmd = [
+            'ssh', '-T', '-q', '-o', 'StrictHostKeyChecking=no',
+            '-o', 'UserKnownHostsFile=/dev/null',
+            '-o', 'KexAlgorithms=+diffie-hellman-group14-sha256,diffie-hellman-group-exchange-sha256',
+            '-o', 'HostKeyAlgorithms=+ssh-rsa',
+            '-i', '/tmp/id_rsa_fixed', f'{os.environ[\"M_USER\"]}@{os.environ[\"M_IP\"]}',
+            mikrotik_commands
+        ]
+        
+        print(f'[*] Uploading to MikroTik...', flush=True)
+        subprocess.run(ssh_cmd)
+        
+        if os.path.exists('/app/commands.txt'):
+            os.remove('/app/commands.txt')
+        os.system('rm -f /tmp/id_rsa_fixed 2>/dev/null')
+        print(f'[+] Done for {list_name}\n', flush=True)
 except Exception as e:
-    print(f'Error: {e}', file=sys.stderr)
+    print(f'[-] Error: {e}', file=sys.stderr, flush=True)
 "
+    echo "[*] Sleeping for $RUN_INTERVAL seconds..."
     sleep "$RUN_INTERVAL"
 done

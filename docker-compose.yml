@@ -1,6 +1,7 @@
 services:
   cdnmap-automation:
     build: .
+    image: cdnmap-prod
     container_name: cdnmap_prod
     restart: always
     network_mode: "host"
