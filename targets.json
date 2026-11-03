@@ -55,5 +55,40 @@
     "mode": "dns_only",
     "target": "claude.ai,anthropic.com",
     "address_list": "address-list-claude"
+  },
+
+  "ubuntu_and_pip": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "ubuntu.com,pypi.org,files.pythonhosted.org",
+    "address_list": "address-list-ubuntu"
+  },
+
+  "pinterest": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "pinterest.com,pinimg.com",
+    "address_list": "address-list-pinterest"
+  },
+
+  "meta_global": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "facebook.com,fbcdn.net,threads.net",
+    "address_list": "address-list-meta"
+  },
+
+  "twitch_tv": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "twitch.tv,ttvnw.net",
+    "address_list": "address-list-twitch"
+  },
+
+  "steam_global": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "steampowered.com,steamcommunity.com,steamstatic.com",
+    "address_list": "address-list-steam"
   }
 }
