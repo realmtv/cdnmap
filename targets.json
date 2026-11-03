@@ -1,0 +1,17 @@
+{
+  "youtube": {
+    "mode": "crawl",
+    "target": "youtube.com",
+    "address_list": "address-list-youtube"
+  },
+  "instagram": {
+    "mode": "crawl",
+    "target": "instagram.com",
+    "address_list": "address-list-instagram"
+  },
+  "discord": {
+    "mode": "dns_only",
+    "target": "discord.com,discordapp.com,discordapp.net,discord.gg,gateway.discord.gg,discord.media",
+    "address_list": "address-list-discord"
+  }
+}

@@ -1,0 +1,16 @@
+services:
+  cdnmap-automation:
+    build: .
+    container_name: cdnmap_prod
+    restart: always
+    environment:
+      # Docker Compose automatically fills these from the local .env file
+      - MIKROTIK_IP=${MIKROTIK_IP}
+      - MIKROTIK_USER=${MIKROTIK_USER}
+      - ITERATIONS=20
+      - DELAY=5
+      - RUN_INTERVAL=86400
+    volumes:
+      - /root/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      - ./targets.json:/app/targets.json:ro
+      - ./.env:/app/.env:ro
