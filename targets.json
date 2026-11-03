@@ -1,17 +1,59 @@
 {
+  "_README": "PRODUCTION CONFIGURATION LEDGER. Set 'enabled': true to activate a service sync to MikroTik.",
+  
   "youtube": {
+    "enabled": true,
     "mode": "crawl",
     "target": "youtube.com",
     "address_list": "address-list-youtube"
   },
+  
   "instagram": {
+    "enabled": false,
     "mode": "crawl",
     "target": "instagram.com",
     "address_list": "address-list-instagram"
   },
+  
   "discord": {
+    "enabled": false,
     "mode": "dns_only",
-    "target": "discord.com,discordapp.com,discordapp.net,discord.gg,gateway.discord.gg,discord.media",
+    "target": "discord.com,discordapp.com,discordapp.net,discord.gg,://discordapp.com,gateway.discord.gg,discord.media",
     "address_list": "address-list-discord"
+  },
+  
+  "google_global": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "google.com,gstatic.com,googleapis.com,googleusercontent.com",
+    "address_list": "address-list-google"
+  },
+  
+  "github_global": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "github.com,githubusercontent.com,githubassets.com,github.io,://githubcopilot.com",
+    "address_list": "address-list-github"
+  },
+  
+  "twitter_x": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "x.com,twitter.com,twimg.com",
+    "address_list": "address-list-twitter"
+  },
+  
+  "openai_chatgpt": {
+    "enabled": false,
+    "mode": "dns_only",
+    "target": "chatgpt.com,openai.com,oaistatic.com,oaiusercontent.com",
+    "address_list": "address-list-chatgpt"
+  },
+  
+  "anthropic_claude": {
+    "enabled": false,
+    "mode": "dns_only",
+    "target": "claude.ai,anthropic.com",
+    "address_list": "address-list-claude"
   }
 }

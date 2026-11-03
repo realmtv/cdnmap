@@ -20,7 +20,10 @@ try:
     with open('/app/targets.json') as f:
         data = json.load(f)
     for key, val in data.items():
-        print(f\"{val['mode']}|{val['target']}|{val['address_list']}\")
+        if key.startswith('_'):
+            continue
+        if isinstance(val, dict) and val.get('enabled') is True:
+            print(f\"{val['mode']}|{val['target']}|{val['address_list']}\")
 except Exception as e:
     print(f'[-] Error reading config: {e}', file=sys.stderr)
     sys.exit(1)
