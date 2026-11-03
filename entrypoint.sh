@@ -42,8 +42,10 @@ except Exception as e:
         if [ -f "commands.txt" ]; then
             echo "[+] Script generated successfully. Deploying to MikroTik..."
             
+            echo "" >> commands.txt
+            
             if [ -f "/root/.ssh/id_rsa" ] && [ ! -z "${MIKROTIK_IP}" ] && [ ! -z "${MIKROTIK_USER}" ]; then
-                ssh -n -q -T -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa "${MIKROTIK_USER}@${MIKROTIK_IP}" "$(cat commands.txt)"
+                ssh -n -q -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa "${MIKROTIK_USER}@${MIKROTIK_IP}" < commands.txt
             else
                 echo "[-] WARNING: SSH key or credentials missing. Manual deployment required."
             fi
