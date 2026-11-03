@@ -18,7 +18,7 @@
   "discord": {
     "enabled": false,
     "mode": "dns_only",
-    "target": "discord.com,discordapp.com,discordapp.net,discord.gg,://discordapp.com,gateway.discord.gg,discord.media",
+    "target": "discord.com,discordapp.com,discordapp.net,discord.gg,cdn.discordapp.com,gateway.discord.gg,discord.media",
     "address_list": "address-list-discord"
   },
   
@@ -32,7 +32,7 @@
   "github_global": {
     "enabled": false,
     "mode": "crawl",
-    "target": "github.com,githubusercontent.com,githubassets.com,github.io,://githubcopilot.com",
+    "target": "github.com,githubusercontent.com,githubassets.com,github.io,api.githubcopilot.com",
     "address_list": "address-list-github"
   },
   
