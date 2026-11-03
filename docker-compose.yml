@@ -3,13 +3,13 @@ services:
     build: .
     container_name: cdnmap_prod
     restart: always
+    network_mode: "host"
     environment:
-      # Docker Compose automatically fills these from the local .env file
       - MIKROTIK_IP=${MIKROTIK_IP}
       - MIKROTIK_USER=${MIKROTIK_USER}
-      - ITERATIONS=20
+      - ITERATIONS=5
       - DELAY=5
-      - RUN_INTERVAL=86400
+      - RUN_INTERVAL=21600
     volumes:
       - /root/.ssh/id_rsa:/root/.ssh/id_rsa:ro
       - ./targets.json:/app/targets.json:ro
