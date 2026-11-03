@@ -1,55 +1,55 @@
 {
   "_README": "PRODUCTION CONFIGURATION LEDGER. Set 'enabled': true to activate a service sync to MikroTik.",
-  
+
   "youtube": {
     "enabled": true,
     "mode": "crawl",
     "target": "youtube.com",
     "address_list": "address-list-youtube"
   },
-  
+
   "instagram": {
     "enabled": false,
     "mode": "crawl",
     "target": "instagram.com",
     "address_list": "address-list-instagram"
   },
-  
+
   "discord": {
     "enabled": false,
     "mode": "dns_only",
     "target": "discord.com,discordapp.com,discordapp.net,discord.gg,cdn.discordapp.com,gateway.discord.gg,discord.media",
     "address_list": "address-list-discord"
   },
-  
+
   "google_global": {
     "enabled": false,
     "mode": "crawl",
     "target": "google.com,gstatic.com,googleapis.com,googleusercontent.com",
     "address_list": "address-list-google"
   },
-  
+
   "github_global": {
     "enabled": false,
     "mode": "crawl",
     "target": "github.com,githubusercontent.com,githubassets.com,github.io,api.githubcopilot.com",
     "address_list": "address-list-github"
   },
-  
+
   "twitter_x": {
     "enabled": false,
     "mode": "crawl",
     "target": "x.com,twitter.com,twimg.com",
     "address_list": "address-list-twitter"
   },
-  
+
   "openai_chatgpt": {
     "enabled": false,
     "mode": "dns_only",
     "target": "chatgpt.com,openai.com,oaistatic.com,oaiusercontent.com",
     "address_list": "address-list-chatgpt"
   },
-  
+
   "anthropic_claude": {
     "enabled": false,
     "mode": "dns_only",
@@ -90,5 +90,40 @@
     "mode": "crawl",
     "target": "steampowered.com,steamcommunity.com,steamstatic.com",
     "address_list": "address-list-steam"
+  },
+
+  "amazon_prime": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "amazon.com,media-amazon.com,primevideo.com,pv-cdn.net",
+    "address_list": "address-list-amazon"
+  },
+
+  "docker_hub": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "docker.com,docker.io",
+    "address_list": "address-list-docker"
+  },
+
+  "adobe_cloud": {
+    "enabled": false,
+    "mode": "crawl",
+    "target": "adobe.com,adobe.io,typekit.net",
+    "address_list": "address-list-adobe"
+  },
+
+  "notion_app": {
+    "enabled": false,
+    "mode": "dns_only",
+    "target": "notion.so,notion.site,notion.new",
+    "address_list": "address-list-notion"
+  },
+
+  "telegram_global": {
+    "enabled": false,
+    "mode": "dns_only",
+    "target": "telegram.org,t.me,telegram.me,api.telegram.org,core.telegram.org,web.telegram.org,dns.telegram.org",
+    "address_list": "address-list-telegram"
   }
 }
